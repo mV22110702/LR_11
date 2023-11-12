@@ -29,14 +29,11 @@ namespace LR_11.Filters.Action
 
             return addressess;
         }
-        public CustomerCountLoggerFilterAttribute(IConfiguration configuration): base()
+        public CustomerCountLoggerFilterAttribute(IConfiguration configuration): base(configuration.GetSection("CUSTOMER_COUNT_LOG_FILE_PATH").Value ?? "./customer_count_log.txt")
         {
-            var CUSTOMER_COUNT_LOG_FILE_PATH = configuration.GetSection("CUSTOMER_COUNT_LOG_FILE_PATH").Value ?? "./customer_count_log.txt";
-            Logger = initLogger(CUSTOMER_COUNT_LOG_FILE_PATH);
-
-            if (File.Exists(CUSTOMER_COUNT_LOG_FILE_PATH))
+            if (File.Exists(LogPath))
             {
-                _uniqueAddresses = initAddressCount(CUSTOMER_COUNT_LOG_FILE_PATH);
+                _uniqueAddresses = initAddressCount(LogPath);
             }
 
         }

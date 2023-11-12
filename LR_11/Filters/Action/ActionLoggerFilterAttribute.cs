@@ -8,10 +8,8 @@ namespace LR_11.Filters.Action
     public class ActionLoggerFilterAttribute : LogFilterAttributeBase<CustomerCountLoggerFilterAttribute>, IActionFilter
     {
 
-        public ActionLoggerFilterAttribute(IConfiguration configuration): base()
+        public ActionLoggerFilterAttribute(IConfiguration configuration): base(configuration.GetSection("ACTION_LOG_FILE_PATH").Value ?? "./action_log.txt")
         {
-            var ACTION_LOG_FILE_PATH = configuration.GetSection("ACTION_LOG_FILE_PATH").Value ?? "./action_log.txt";
-            Logger = initLogger(ACTION_LOG_FILE_PATH);
         }
 
         private void LogMethod(string? actionMethod)

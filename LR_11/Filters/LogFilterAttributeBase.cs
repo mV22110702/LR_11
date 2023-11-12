@@ -6,7 +6,15 @@ namespace LR_11.Filters
 {
     public abstract class LogFilterAttributeBase<T> : Attribute where T : IFilterMetadata
     {
+        
+        protected LogFilterAttributeBase(string path)
+        {
+            LogPath = path;
+            Logger = initLogger(path);
+        }
+
         protected ILogger<T> Logger { get; set; }
+        protected string LogPath { get; }
         protected ILogger<T> initLogger(string path) 
         {
 
